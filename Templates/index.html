@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS - Control de Inventario</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f6f9; color: #333; }
+        h1, h2 { color: #2c3e50; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        form { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 30px; }
+        input, button { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { background-color: #3498db; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #2980b9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #2c3e50; color: white; }
+        tr:hover { background-color: #f1f2f6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📦 Panel de Inventario</h1>
+    <p>Registra tus productos y administra el stock en tiempo real.</p>
+    <hr>
+
+    <h2>Añadir Nuevo Producto</h2>
+    <form action="/" method="POST">
+        <input type="text" name="id" placeholder="Código (Barras o ID)" required>
+        <input type="text" name="nombre" placeholder="Nombre del Producto" required>
+        <input type="number" name="precio_compra" step="0.01" placeholder="Precio Compra ($)" required>
+        <input type="number" name="precio_venta" step="0.01" placeholder="Precio Venta ($)" required>
+        <input type="number" name="stock" placeholder="Cantidad Inicial" required>
+        <button type="submit">Guardar Producto</button>
+    </form>
+
+    <h2>Productos en Estantería</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Costo</th>
+                <th>P. Venta</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto[0] }}</td>
+                <td>{{ producto[1] }}</td>
+                <td>${{ producto[2] }}</td>
+                <td>${{ producto[3] }}</td>
+                <td>{{ producto[4] }} u</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #7f8c8d;">No hay productos registrados en el inventario.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+                  </html>
